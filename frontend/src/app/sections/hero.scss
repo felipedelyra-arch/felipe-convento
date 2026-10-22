@@ -1,0 +1,78 @@
+.hero {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: var(--header-h) 1fr;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  nav { display: flex; gap: var(--sp-6); margin-left: auto; }
+  nav a {
+    color: var(--text);
+    font-size: var(--fs-sm);
+    text-decoration: none;
+    transition: color 160ms;
+    &:hover { color: var(--title); }
+  }
+  .contact-link { color: var(--title); font-size: var(--fs-sm); text-decoration: underline; text-underline-offset: 0.25em; text-decoration-color: var(--accent); }
+}
+
+.mark { font-size: 1.375rem; font-weight: 600; letter-spacing: -0.02em; color: var(--title); text-decoration: none; }
+
+// Copy and portrait share the stage roughly 50/50 so neither dwarfs the other.
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: var(--sp-6);
+}
+
+.copy { display: grid; gap: var(--sp-5); justify-items: start; padding-block: var(--sp-7); }
+
+.name {
+  font-weight: 600;
+  font-size: var(--fs-name);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  .mask { display: block; overflow: hidden; padding-block: 0.04em; }
+  .line { display: block; }
+}
+
+.intro { max-width: 34ch; font-size: var(--fs-lg); line-height: 1.5; color: var(--title); }
+
+.actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-2); }
+
+// The portrait keeps its full square so shoulders are never cropped; the asset fades out at the bottom.
+.portrait {
+  position: relative;
+  margin: 0;
+  align-self: end;
+  // Bleeds into the right margin so the portrait reads larger than the text column.
+  width: min(calc(100% + var(--margin)), 100svh);
+  justify-self: end;
+  margin-right: calc(-1 * var(--margin));
+}
+
+.hint {
+  position: absolute;
+  right: 4%;
+  bottom: 8%;
+  color: var(--muted);
+  font-size: var(--fs-xs);
+  pointer-events: none;
+}
+.hint-touch { display: none; }
+@media (hover: none) {
+  .hint-desktop { display: none; }
+  .hint-touch { display: inline; }
+}
+
+@media (max-width: 900px) {
+  .hide-sm { display: none; }
+  .bar { gap: var(--sp-4); nav { gap: var(--sp-4); } }
+  .stage { grid-template-columns: 1fr; gap: 0; }
+  .portrait { order: -1; width: min(100%, 64svh); margin-right: 0; justify-self: center; }
+  .copy { padding-block: var(--sp-5) var(--sp-8); }
+}

@@ -1,0 +1,91 @@
+// Every project row: same media proportion (16:10), same column split, text top-aligned.
+.project {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: var(--sp-7);
+  align-items: start;
+  padding-block: var(--sp-8);
+  &.flip { grid-template-columns: 5fr 7fr; .media { order: 2; } }
+}
+
+.media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  position: relative;
+}
+
+.term {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  pre { margin: 0; font-size: clamp(0.625rem, 0.95vw, 0.9375rem); line-height: 1.6; color: var(--title); white-space: pre; }
+  b { color: #ff7d86; font-weight: 600; }
+  .dim { color: var(--muted); }
+}
+
+// Phone screens at a size where their text stays legible.
+.phones {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3%;
+  padding: 6% 5% 0;
+  img { width: 30%; height: auto; border-radius: 14px; }
+  img:nth-child(2) { margin-top: -3%; }
+}
+
+.browser {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 5% 5% 0;
+  .chrome {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: var(--surface-2);
+    border-radius: var(--r-sm) var(--r-sm) 0 0;
+    span { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); }
+    p { margin-left: 10px; font-size: var(--fs-xs); color: var(--muted); }
+  }
+  img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: top; }
+}
+
+.text { display: grid; gap: var(--sp-4); justify-items: start; }
+h3 { font-size: var(--fs-xl); }
+.meta { margin-top: calc(-1 * var(--sp-3)); font-size: var(--fs-sm); color: var(--muted); }
+.body { max-width: 52ch; }
+.details { display: grid; gap: var(--sp-2); padding: var(--sp-3) 0 0 1.1rem; list-style: disc; font-size: var(--fs-sm); }
+
+.also {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-6) var(--sp-7);
+  padding-top: var(--sp-7);
+  > h3 { grid-column: 1 / -1; font-size: var(--fs-lg); }
+  article { display: grid; gap: var(--sp-2); align-content: start; max-width: 52ch; }
+  h4 { font-size: var(--fs-lg); }
+  .meta { margin: 0; }
+}
+
+@media (max-width: 900px) {
+  .project, .project.flip { grid-template-columns: 1fr; gap: var(--sp-5); padding-block: var(--sp-7); .media { order: 0; } }
+  // Phone screens become a swipeable row at a legible size.
+  .media:has(.phones) { aspect-ratio: auto; }
+  .phones {
+    justify-content: flex-start;
+    gap: var(--sp-3);
+    padding: var(--sp-5);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    img { flex: 0 0 68%; width: auto; scroll-snap-align: center; border-radius: 14px; }
+    img:nth-child(2) { margin-top: 0; }
+  }
+  .term { overflow-x: auto; align-items: flex-start; padding-top: var(--sp-6); }
+  .term pre { font-size: 0.6875rem; }
+  .also { grid-template-columns: 1fr; }
+}

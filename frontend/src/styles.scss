@@ -1,0 +1,144 @@
+// Design tokens. Charcoal base, soft-white titles, readable grey text, one blue accent.
+:root {
+  --bg: #0c0d10; // charcoal
+  --surface: #13151a;
+  --surface-2: #1a1d23;
+  --line: rgb(255 255 255 / 0.07);
+  --line-strong: rgb(255 255 255 / 0.14);
+  --title: #f1f2f4; // soft white
+  --text: #b9bec8; // body copy, 10:1 on --bg
+  --muted: #8a909c; // secondary notes, 5.9:1 on --bg
+  --accent: #2f62f0; // buttons and interaction details; white on it 5.1:1
+  --accent-hover: #3d6ff7;
+  --accent-text: #8fa9ff; // accent used as text on --bg, 8:1
+  --study: #f2c46b;
+
+  --font-text: 'Barlow', system-ui, sans-serif;
+  --font-code: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; // only for the lab logs
+
+  // Type scale (rem = 16px).
+  --fs-xs: 0.875rem; // 14: metadata
+  --fs-sm: 1rem; // 16: secondary text, chips
+  --fs-base: 1.125rem; // 18: body
+  --fs-lg: 1.375rem; // 22: lead, card titles
+  --fs-xl: clamp(1.75rem, 1.3rem + 1.4vw, 2.25rem); // project titles
+  --fs-2xl: clamp(2.25rem, 1.6rem + 2.2vw, 3.25rem); // section titles
+  --fs-name: clamp(3.25rem, 1.8rem + 5vw, 6.75rem);
+
+  // Spacing scale.
+  --sp-1: 0.25rem; --sp-2: 0.5rem; --sp-3: 0.75rem; --sp-4: 1rem; --sp-5: 1.5rem;
+  --sp-6: 2rem; --sp-7: 3rem; --sp-8: 4rem; --sp-9: 6rem;
+  --margin: clamp(1.25rem, 4vw, 4rem);
+  --section-pad: clamp(5rem, 9vw, 8.5rem);
+  --max-w: 82rem;
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --btn-h: 3rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --header-h: 4.5rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 1rem; background: var(--bg); }
+
+// Desktop reads at the equivalent of 125% browser zoom (base 20px); tablets at 112.5%.
+// Everything sized in rem scales with it; vh-based sizes stay true to the screen.
+@media (min-width: 1100px) { html { font-size: 125%; } }
+@media (min-width: 768px) and (max-width: 1099px) { html { font-size: 112.5%; } }
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-text);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1, h2, h3, h4 { margin: 0; color: var(--title); font-weight: 600; line-height: 1.15; letter-spacing: -0.01em; }
+p { margin: 0; }
+a { color: inherit; }
+img, svg, video, canvas { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+code, pre { font-family: var(--font-code); }
+
+::selection { background: var(--accent); color: #fff; }
+:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { width: 100%; max-width: var(--max-w); margin-inline: auto; padding-inline: var(--margin); }
+.section { padding-block: var(--section-pad); }
+
+h2.title { font-size: var(--fs-2xl); margin-bottom: var(--sp-7); }
+
+.panel { background: var(--surface); border-radius: var(--r-sm); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: var(--btn-h);
+  padding: 0 1.25rem;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 160ms;
+  &:hover { background: var(--accent-hover); }
+  &.quiet { background: var(--surface-2); color: var(--title); &:hover { background: #22252c; } }
+  app-icon { font-size: 1.1em; }
+}
+
+.link {
+  color: var(--title);
+  text-decoration: underline;
+  text-decoration-color: var(--muted);
+  text-underline-offset: 0.2em;
+  &:hover { text-decoration-color: var(--accent-text); }
+}
+
+// Technologies read as text with a small brand mark, not as tags.
+.tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-5);
+  font-size: var(--fs-sm);
+  color: var(--text);
+  li { display: inline-flex; align-items: center; gap: var(--sp-2); }
+  app-icon { color: var(--muted); }
+}
+
+details.more > summary {
+  display: inline-block;
+  color: var(--accent-text);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  list-style: none;
+  &::-webkit-details-marker { display: none; }
+  .less { display: none; }
+}
+details.more[open] > summary {
+  .more-label { display: none; }
+  .less { display: inline; }
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

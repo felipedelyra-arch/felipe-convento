@@ -1,0 +1,14 @@
+main { display: block; }
+.main > * { display: block; }
+
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 200;
+  padding: 0.75rem 1rem;
+  background: var(--title);
+  color: var(--bg);
+  transform: translateY(-200%);
+  &:focus { transform: none; }
+}

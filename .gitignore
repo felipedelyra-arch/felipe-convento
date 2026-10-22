@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.angular/
+.env
+.env.*
+!.env.example
+target/
+
+# Local tooling and raw downloads
+.taste-skill/
+assets/
+.vercel
